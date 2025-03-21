@@ -1,0 +1,38 @@
+Libraries Used
+
+🔹 Graphical Interface
+
+tkinter (Tk, ttk)
+ttkthemes (ThemedStyle)
+streamlit
+
+🔹 Automation
+
+pyautogui
+keyboard
+
+🔹 Processes and Systems
+
+subprocess
+psutil
+ctypes
+os
+
+🔹 Image Manipulation and OCR
+
+PIL (Image, ImageTk, ImageGrab)
+pytesseract → (OCR)
+
+🔹 Database
+
+sqlite3
+
+🔹 Data Analysis and Visualization
+
+pandas
+matplotlib.pyplot 
+
+🔹 Utilities
+
+datetime (dt)
+time
