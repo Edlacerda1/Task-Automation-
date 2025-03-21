@@ -155,7 +155,55 @@ def moves(item):
        py.moveTo(80, 194, duration=1)   
        py.click()        
              
-                     
+             
+def reworking():
+   py.write("00")
+   time.sleep(0.5)
+   py.press('right')  
+   time.sleep(0.1)
+   py.press('right')
+   time.sleep(0.1)
+   py.press('right')
+   time.sleep(0.1)
+   py.press('right')
+   time.sleep(0.1)
+   py.press('right')
+   time.sleep(0.1)
+   py.write("RETRABALHO")      
+   time.sleep(0.5)  
+   py.press('tab')
+   py.press('space')
+   time.sleep(0.1)  
+   py.press('space')
+   time.sleep(0.1) 
+   py.write("RETRABALHO")
+   time.sleep(1)  
+   py.press('tab')
+   time.sleep(0.1)  
+   py.press('space')   
+   time.sleep(0.1)  
+   py.press('right')
+   time.sleep(0.1)  
+   py.press('right')
+   time.sleep(0.1)  
+   py.press('right')
+   time.sleep(0.1)  
+   py.press('right')
+   time.sleep(0.1)  
+   py.press('right')
+   time.sleep(0.1)  
+   py.press('right')
+   time.sleep(0.1)    
+   py.press('right')
+   time.sleep(1)
+    
+   py.write("0,01")
+   time.sleep(2)
+           
+   py.press('down')
+   time.sleep(2)
+               
+                       
      
 class Microsigma: 
     #// construtor
@@ -392,6 +440,7 @@ class Microsigma:
         
         time.sleep(1.5)
         
+        reworking()
 
         arquivo = f"{self.pvi} - {self.item}"
 
