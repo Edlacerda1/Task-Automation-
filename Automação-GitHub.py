@@ -30,12 +30,14 @@ from Security import front_authentic
 
 
 # TODO: Incrementar e polir a função de cadastro com OCR'S melhorada
+# TODO: Terminar funcao de cadastro 
 # TODO: Organizar e gerar arquivo em .exe
-
+# TODO: Função para cada produto
 
 # // Caminho do pytesseract no windowns
 pytesseract.pytesseract.tesseract_cmd = r'C:/Users/elacerda/AppData/Local/Programs/Tesseract-OCR/tesseract.exe'
 
+py.PAUSE = 0.3
 
 if front_authentic():
    pass
@@ -61,8 +63,9 @@ def minusculo():
 
 
 def error():
-   
+     #* Captura uma área da tela 
      screenshot = ImageGrab.grab(bbox= (761, 447, 853, 469))
+        #* Usa o pytesseract para fazer OCR
      texto = pytesseract.image_to_string(screenshot).strip()
      
      if texto == "Problema":
@@ -155,8 +158,8 @@ def moves(item):
        py.moveTo(80, 194, duration=1)   
        py.click()        
              
-             
 def reworking():
+   
    py.write("00")
    time.sleep(0.5)
    py.press('right')  
@@ -169,6 +172,7 @@ def reworking():
    time.sleep(0.1)
    py.press('right')
    time.sleep(0.1)
+   
    py.write("RETRABALHO")      
    time.sleep(0.5)  
    py.press('tab')
@@ -182,6 +186,7 @@ def reworking():
    time.sleep(0.1)  
    py.press('space')   
    time.sleep(0.1)  
+   
    py.press('right')
    time.sleep(0.1)  
    py.press('right')
@@ -203,7 +208,6 @@ def reworking():
    py.press('down')
    time.sleep(2)
                
-                       
      
 class Microsigma: 
     #// construtor
@@ -222,9 +226,10 @@ class Microsigma:
           exit()
           
          
-        if self.acao == "cadastro":
+        if self.acao == "cadastro": # chamando cada def com base no filtro
             self.cadastro()
             self.banco()
+            
         elif self.acao == "consulta":
             self.consulta()
   
@@ -236,14 +241,14 @@ class Microsigma:
      fechar_smartclient()
      time.sleep(1)
         
-      
+        #* Abrir o microsigma
      subprocess.Popen(["C:\\smartclient\\smartclient.exe"])
      time.sleep(5)
      minusculo()
 
         # Confirmar a aberturas
      py.moveTo(997, 700, duration=0.1)
-     py.PAUSE = 5 
+     py.PAUSE = 5 # Pausa maior para garantir que o programa tenha tempo para carregar
      py.click(x=997, y=700)
      py.click(x=997, y=700)
 
@@ -255,7 +260,7 @@ class Microsigma:
      
         
         # Digitar usuário
-     py.write('xxxxxxxx', interval=0.1)
+     py.write('xxxxxx', interval=0.1)
         
      time.sleep(2)   
         
@@ -265,13 +270,13 @@ class Microsigma:
         
      time.sleep(1.5)
         
-        #? Troca obrigatoria +- 3 meses
-     py.write('xxxxxxxxx', interval=0.1)
+        
+     py.write('xxxxx', interval=0.1)
      py.PAUSE = 0.1
         
         # Clicar em Entrar após logar
      py.moveTo(925, 647, duration=0.1)
-     time.sleep(2)
+     time.sleep(1.5)
      py.click(x=925, y=647)
         
      time.sleep(3)
@@ -342,8 +347,6 @@ class Microsigma:
      py.click(x=1199, y=794)
 
 
-
-
    def cadastro(self):
         
         
@@ -365,12 +368,18 @@ class Microsigma:
           #* OCR de cada produto completo 
         codigo = pytesseract.image_to_string(produtos)
         
-       
+          # Converte em lista 
         lista_informacoes = codigo.split()
          
          
         print(lista_informacoes)
 
+          
+        servico = [] 
+        uni = []
+        
+
+        print(servico)
         
         time.sleep(1)
         
@@ -385,8 +394,15 @@ class Microsigma:
         lista_uni = unidade.split() 
         
         print(lista_uni)  
+         
+        print(type(lista_informacoes))
+        print(type(lista_uni))
+        
+        
+        print(f"{self.item}")
+        print(type(self.item))
    
-
+   
         time.sleep(0.5)
   
         
@@ -440,14 +456,13 @@ class Microsigma:
         
         time.sleep(1.5)
         
-        reworking()
-
+      
         arquivo = f"{self.pvi} - {self.item}"
 
-        origem = f"//srv-xxxxx/E/Arquivos/Engenharias/EngenhariaC/Engenharia/Setor1/Fichas/01 - Fichas Geral - 2025/{arquivo}.xlsm"
+        origem = f"//srv-xxxxx/E/Arquivos/xxxxxxx/xxxxxx/xxxxx_xx/xxxxxx/xxxxx/- xxxx xxxx - xxxx/{arquivo}.xlsm"
 
         try:  
-          df = pd.read_excel(origem, sheet_name="Procedimentos", header=2, usecols="C:F",engine="openpyxl")
+          df = pd.read_excel(origem, sheet_name="Automação", header=2, usecols="C:F",engine="openpyxl")
           print("Leitura bem-sucedida!")
      
           df.dropna
@@ -457,82 +472,141 @@ class Microsigma:
           centro_custo = df['C.C.'].astype(str)
           operacao = df['Trabalho'].astype(str)
           horas = df['Horas'].astype(str)
-
-      
-
+                
+          reworking()
+          
+          py.PAUSE = 0.3
+          
           for s, c, o, h in zip(sequencia, centro_custo, operacao, horas):
            print(f"Sequencia {s}, Centro de custo {c}, Operacao {o}, horas {h}")
- 
-           time.sleep(1)
-           py.write(str(s))
-           py.press('tab')
-           time.sleep(5)
+             
+           if int(s) < 10:
+            
+            py.press('enter')    
+            time.sleep(1)
+            py.write(f"0{s}")
+            time.sleep(1)
+
     
-           py.write(f"00{c}")
-           time.sleep(0.5)
-           py.press('right')   
-           time.sleep(0.1)
-           py.press('right')
-           time.sleep(0.1)
-           py.press('right')
-           time.sleep(0.1)
-           py.press('right')
-           time.sleep(1.5)  
+            py.write(f"00{c}")
+            time.sleep(0.5)
+            py.press('right')   
+            time.sleep(0.1)
+            py.press('right')
+            time.sleep(0.1)
+            py.press('right')
+            time.sleep(0.1)
+            py.press('right')
+            time.sleep(1)  
        
-           py.write(str(o))
-           time.sleep(0.5)  
-           py.press('tab')
-           py.press('space')
-           time.sleep(0.1)  
-           py.press('space')
-           time.sleep(0.1) 
-           py.write(str(o))
-           time.sleep(0.1)  
-           py.press('tab')
-           time.sleep(0.1)  
-           py.press('space')   
-           time.sleep(0.1)  
-           py.press('right')
-           time.sleep(0.1)  
-           py.press('right')
-           time.sleep(0.1)  
-           py.press('right')
-           time.sleep(0.1)  
-           py.press('right')
-           time.sleep(0.1)  
-           py.press('right')
-           time.sleep(0.1)  
-           py.press('right')
-           time.sleep(0.1)    
-           py.press('right')
-           time.sleep(1)
+            py.write(str(o))
+            time.sleep(1)  
+            py.press('enter')
+            py.press('space')
+            time.sleep(0.1)  
+            py.press('space')
+            time.sleep(0.1) 
+            py.write(str(o))
+            time.sleep(1.5)  
+            py.press('tab')
+            time.sleep(0.1)  
+            py.press('space')   
+            time.sleep(0.1)  
+            py.press('right')
+            time.sleep(0.1)  
+            py.press('right')
+            time.sleep(0.1)  
+            py.press('right')
+            time.sleep(0.1)  
+            py.press('right')
+            time.sleep(0.1)  
+            py.press('right')
+            time.sleep(0.1)        
+            py.press('right')
+            time.sleep(0.1)    
+            py.press('right')
+            time.sleep(1)
     
-           py.write(str(h))
-           time.sleep(2)
-           py.press('tab')
-           time.sleep(0.5)
+            py.write(str(h))
+            time.sleep(1)
+            py.press('tab')
+            time.sleep(0.5)
+        
+            py.press('down')
+            time.sleep(0.5)
+            
+           else:
+
+                                    
+            time.sleep(1)
+            py.write(str(s))
+            time.sleep(0.5)
+            py.press('enter')
+            py.write(f"00{c}")
+            time.sleep(0.5)
+            py.press('right')   
+            time.sleep(0.1)
+            py.press('right')
+            time.sleep(0.1)
+            py.press('right')
+            time.sleep(0.1)
+            py.press('right')
+            time.sleep(1)  
        
-           py.press('down')
-           time.sleep(1)
+            py.write(str(o))
+            time.sleep(1)  
+            py.press('enter')
+            py.press('space')
+            time.sleep(0.1)  
+            py.press('space')
+            time.sleep(0.1) 
+            py.write(str(o))
+            time.sleep(1.5)  
+            py.press('tab')
+            time.sleep(0.1)  
+            py.press('space')   
+            time.sleep(0.1)  
+            py.press('right')
+            time.sleep(0.1)  
+            py.press('right')
+            time.sleep(0.1)  
+            py.press('right')
+            time.sleep(0.1)  
+            py.press('right')
+            time.sleep(0.1)  
+            py.press('right')
+            time.sleep(0.1)        
+            py.press('right')
+            time.sleep(0.1)    
+            py.press('right')
+            time.sleep(1)
+    
+            py.write(str(h))
+            time.sleep(1)
+            py.press('tab')
+            time.sleep(0.5)
+        
+            py.press('down')
+            time.sleep(0.5)
        
 
         except Exception as e:
              print(f"Um erro ocorreu: {e}")
              
-        time.sleep(1)
-        
+             
+        time.sleep(1.3)
         
         # Salvar formulário
         py.moveTo(x=1849, y=155)
         py.click(x=1849, y=155)
         
-        time.sleep(1)
+        time.sleep(1.3)
         
         # Confirmar formulário
         py.moveTo(x=1208, y=639)
         py.click(x=1208, y=639)
              
-        time.sleep(1)
+        time.sleep(1.3)
         
         # Fechar 
         py.moveTo(x=1899, y=139)
@@ -574,19 +648,17 @@ class Microsigma:
         py.click(x=1813, y=190)
 
 
-    
-
    def banco(self):
        
     try:  
        
-     conexao = sqlite3.connect("MicroSigma.db")  #* Cria a conexao no db MicroSigma
-     cursor = conexao.cursor() #* Cria um cursor para comandar dados
-   
+     conexao = sqlite3.connect("MicroSigma.db") 
+     cursor = conexao.cursor() 
+
     except sqlite3.error as e:
        print(e)
        
-    #* Criar a tabela MicroSigma e seus atributos
+    
     
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS MicroSigma (
@@ -600,21 +672,26 @@ class Microsigma:
         )
     ''')
 
+    # Dados de cadastro
     cadastros = [(self.pvi, self.item ,self.prod, self.servico, self.cod, dt.datetime.now().strftime("%d-%m-%Y %H:%M:%S"))] 
     
-
+    
     cursor.executemany("INSERT INTO MicroSigma (Pedidos, Item, Produto, Serviço, Código, Data) VALUES (?, ?, ?, ?, ?, ?)", cadastros)
 
+    
     conexao.commit()
-  
+
+   
     cursor.execute("SELECT * FROM MicroSigma")
     registros = cursor.fetchall()
+
 
     cursor.close()
     conexao.close()
    
    
     print("Processo finalizado e cadastrado no banco de dados")
+
 
 
 def front_end():
@@ -625,19 +702,19 @@ def front_end():
     # Função para atualizar a data e hora
     def atualizar():
         data_atual = dt.datetime.now().strftime("%d-%m || %H:%M:%S")
-        label_data.config(text=f"{data_atual}")  # Atualiza o texto do rótulo
-        root.after(1000, atualizar)             # Chama esta função novamente após 1 segundo
+        label_data.config(text=f"{data_atual}") 
+        root.after(1000, atualizar)           
 
-   
+    #* Criando a janela principal
     root = tk.Tk()
     root.title("Automação MicroSigma")
     root.config(bg="gray17")
     
-  
+    #* Inserindo o tema no root
     style =ThemedStyle(root) 
     style.set_theme('equilux') 
 
-    
+    #* Informações da tela
     screen_largura = root.winfo_screenwidth()
     screen_altura = root.winfo_screenheight()
     largura_janela = 500
@@ -648,13 +725,15 @@ def front_end():
     y = (screen_altura // 2) - (altura_janela // 2)   
     root.geometry(f"{largura_janela}x{altura_janela}+{x}+{y}")
 
-   
+    
     botao_cadastro = tk.Button(root, text="Cadastro", font="bold", bg="gray17", fg="white",  command=lambda: [Microsigma("cadastro", entrada.get(), item.get(), prod.get(), serv.get(), None)])
     botao_consulta = tk.Button(root, text="Consulta", font="bold", bg="gray17", fg="white", command=lambda: [Microsigma("consulta", entrada.get(), item.get(), prod.get(), serv.get(), None )])
 
 
+    # Registra a validação de números
     verif = (root.register(validar_numeros), '%S')
 
+    # Rótulo e entrada de texto
     label = tk.Label(root, text="Insira o PV e item:", fg="white",bg="gray17", font="bold")
     label.place(x=50, y=50)
     
@@ -686,25 +765,26 @@ def front_end():
     serv = ttk.Combobox(root, font="bold", values=Servicos, state="readonly")
     serv.place(x=250, y=145, width=181)
     
-
+    # Adicionando os botões na root
     botao_cadastro.place(x=50, y=230, width=120, height=40)
     botao_consulta.place(x=200, y=230, width=120, height=40)
 
-
+    # Adicionando a imagem
     imagem = Image.open("logo-friese.jpg")
     imagem_tk = ImageTk.PhotoImage(imagem)
 
     label_imagem = tk.Label(root, image=imagem_tk, bg="gray17")
     label_imagem.place(y= 350,anchor="nw")
 
-
+    # Label da data
     label_data = tk.Label(root, text="", font=("Times", 14,), bg="gray17", fg="white")
     label_data.place(relx=1.0, rely=1.0, anchor="se")  # Canto inferior direito
 
-
+    # Atualização da data
     atualizar()
 
-
+    # Inicia o loop principal da interface
     root.mainloop()
 
 front_end()
+
