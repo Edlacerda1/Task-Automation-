@@ -57,15 +57,15 @@ def fechar_smartclient():
 
 def minusculo():  
     
-    if ctypes.windll.user32.GetKeyState(0x14) == 1:
-        keyboard.press_and_release('caps lock') 
+    if ctypes.windll.user32.GetKeyState(0x14) == 1: #* verifica se a tecla está ativa pelo cytpes, local em hexa e bool para ver se esta ativa
+        keyboard.press_and_release('caps lock') #* press da tecla 
 
 
 
 def error():
      #* Captura uma área da tela 
      screenshot = ImageGrab.grab(bbox= (761, 447, 853, 469))
-        #* Usa o pytesseract para fazer OCR
+       
      texto = pytesseract.image_to_string(screenshot).strip()
      
      if texto == "Problema":
@@ -76,6 +76,8 @@ def error():
  
  
 def moves(item):
+   
+    time.sleep(1)
                     
                                                                        
     if item == "01":                                    
@@ -156,9 +158,57 @@ def moves(item):
        py.click()   
        keyboard.press("enter") 
        py.moveTo(80, 194, duration=1)   
-       py.click()        
+       py.click()     
+                     
+                     
+    elif item == "10":
+       py.moveTo(183, 610, duration=1)  
+       print("Moveu para posição 10")   
+       py.click()   
+       keyboard.press("enter") 
+       py.moveTo(80, 194, duration=1)   
+       py.click()   
+       
+       
+    elif item == "11":
+       py.moveTo(183, 645, duration=1)  
+       print("Moveu para posição 11")   
+       py.click()   
+       keyboard.press("enter") 
+       py.moveTo(80, 194, duration=1)   
+       py.click()
+       
+       
+    elif item == "12":
+       py.moveTo(183, 685, duration=1)  
+       print("Moveu para posição 12")   
+       py.click()   
+       keyboard.press("enter") 
+       py.moveTo(80, 194, duration=1)   
+       py.click()   
+       
+       
+    elif item == "13":
+       py.moveTo(183, 725, duration=1)  
+       print("Moveu para posição 13")   
+       py.click()   
+       keyboard.press("enter") 
+       py.moveTo(80, 194, duration=1)   
+       py.click()   
+       
+       
+    elif item == "14":
+       py.moveTo(183, 760, duration=1)  
+       print("Moveu para posição 14")      
+       py.click()   
+       keyboard.press("enter") 
+       py.moveTo(80, 194, duration=1)   
+       py.click()       
              
 def reworking():
+   
+   py.PAUSE = 0.5
+   py.press('delete')
    
    py.write("00")
    time.sleep(0.5)
@@ -270,8 +320,8 @@ class Microsigma:
         
      time.sleep(1.5)
         
-        
-     py.write('xxxxx', interval=0.1)
+        #? Troca obrigatoria +- 3 meses
+     py.write('xxxxxx', interval=0.1)
      py.PAUSE = 0.1
         
         # Clicar em Entrar após logar
@@ -356,7 +406,7 @@ class Microsigma:
         
            
           #* Captura dos códigos do produto 
-        produtos = ImageGrab.grab(bbox=(209,200, 440, 654))
+        produtos = ImageGrab.grab(bbox=(209,200, 440, 954))
        
         time.sleep(2) 
                  
@@ -377,7 +427,7 @@ class Microsigma:
           
         servico = [] 
         uni = []
-        
+               
 
         print(servico)
         
@@ -402,7 +452,7 @@ class Microsigma:
         print(f"{self.item}")
         print(type(self.item))
    
-   
+
         time.sleep(0.5)
   
         
@@ -411,7 +461,7 @@ class Microsigma:
         print(f"Código CR {lista_informacoes[int(self.item)]} na posição {self.item}")
         
         self.cod = lista_informacoes[int(self.item)]
-        print(f"{self.cod}") 
+        print(f"{self.cod}")
         
         # Fechar ORDENS DE PRODUÇAO
         time.sleep(1.5)
@@ -444,28 +494,32 @@ class Microsigma:
         py.click(x=47, y=191)
    
         py.PAUSE = 0.1
-        py.write('99', interval=0.1)
+        py.write('99', interval=0.3)
         
         indice = int(self.item)
          
         print(f"{lista_informacoes[indice]}")
         
-        py.PAUSE = 0.1
+        time.sleep(0.3)
+        
         py.write(lista_informacoes[indice], interval=0.1)
         
         
         time.sleep(1.5)
         
+        
+        reworking()
+        
       
         arquivo = f"{self.pvi} - {self.item}"
 
-        origem = f"//srv-xxxxx/E/Arquivos/xxxxxxx/xxxxxx/xxxxx_xx/xxxxxx/xxxxx/- xxxx xxxx - xxxx/{arquivo}.xlsm"
+        origem = f"//xxxxx/X/xxxxxx/xxxxxx/xxxxxx/xxxxxx/xxxxxx/xxxxxx/01 - xxxxxx xxxxxx - 2025/{arquivo}.xlsm"
 
         try:  
           df = pd.read_excel(origem, sheet_name="Automação", header=2, usecols="C:F",engine="openpyxl")
           print("Leitura bem-sucedida!")
      
-          df.dropna
+          df = df.dropna(how='all')
     
  
           sequencia = df['Seq.'].astype(str)
@@ -473,21 +527,26 @@ class Microsigma:
           operacao = df['Trabalho'].astype(str)
           horas = df['Horas'].astype(str)
                 
-          reworking()
           
           py.PAUSE = 0.3
           
           for s, c, o, h in zip(sequencia, centro_custo, operacao, horas):
            print(f"Sequencia {s}, Centro de custo {c}, Operacao {o}, horas {h}")
-             
+
+           
+           if pd.isna(s) or pd.isna(c) or pd.isna(o) or pd.isna(h):
+             print("Dados ausentes detectados. Encerrando loop.")
+             continue
+          
+          
            if int(s) < 10:
-            
+                          
             py.press('enter')    
             time.sleep(1)
             py.write(f"0{s}")
             time.sleep(1)
 
-    
+
             py.write(f"00{c}")
             time.sleep(0.5)
             py.press('right')   
@@ -536,8 +595,7 @@ class Microsigma:
             time.sleep(0.5)
             
            else:
-
-                                    
+                              
             time.sleep(1)
             py.write(str(s))
             time.sleep(0.5)
@@ -652,13 +710,12 @@ class Microsigma:
        
     try:  
        
-     conexao = sqlite3.connect("MicroSigma.db") 
+     conexao = sqlite3.connect("MicroSigma.db")  
      cursor = conexao.cursor() 
-
+   
     except sqlite3.error as e:
        print(e)
        
-    
     
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS MicroSigma (
@@ -675,17 +732,17 @@ class Microsigma:
     # Dados de cadastro
     cadastros = [(self.pvi, self.item ,self.prod, self.servico, self.cod, dt.datetime.now().strftime("%d-%m-%Y %H:%M:%S"))] 
     
-    
+    #* Execução de insert em db
     cursor.executemany("INSERT INTO MicroSigma (Pedidos, Item, Produto, Serviço, Código, Data) VALUES (?, ?, ?, ?, ?, ?)", cadastros)
 
-    
+    #* Salvar as alterações no banco
     conexao.commit()
 
-   
+    #* Consulta de dados, retornando todos valores 
     cursor.execute("SELECT * FROM MicroSigma")
     registros = cursor.fetchall()
 
-
+    #* Fechar o cursor e a conexão
     cursor.close()
     conexao.close()
    
@@ -702,8 +759,8 @@ def front_end():
     # Função para atualizar a data e hora
     def atualizar():
         data_atual = dt.datetime.now().strftime("%d-%m || %H:%M:%S")
-        label_data.config(text=f"{data_atual}") 
-        root.after(1000, atualizar)           
+        label_data.config(text=f"{data_atual}")  # Atualiza o texto do rótulo
+        root.after(1000, atualizar)             # Chama esta função novamente após 1 segundo
 
     #* Criando a janela principal
     root = tk.Tk()
@@ -725,7 +782,7 @@ def front_end():
     y = (screen_altura // 2) - (altura_janela // 2)   
     root.geometry(f"{largura_janela}x{altura_janela}+{x}+{y}")
 
-    
+
     botao_cadastro = tk.Button(root, text="Cadastro", font="bold", bg="gray17", fg="white",  command=lambda: [Microsigma("cadastro", entrada.get(), item.get(), prod.get(), serv.get(), None)])
     botao_consulta = tk.Button(root, text="Consulta", font="bold", bg="gray17", fg="white", command=lambda: [Microsigma("consulta", entrada.get(), item.get(), prod.get(), serv.get(), None )])
 
