@@ -19,20 +19,6 @@ import pandas as pd
 from Security import front_authentic
 
 
-
-#TODO: Melhorias futuras futuros
-#! Erro
-#? Dúvidas
-#* Explicações de Bibliotecas
-#// Testes || comentarios pessoais
-#Explicação de lógicas 
-
-
-# TODO: Incrementar e polir a função de cadastro com OCR'S melhorada
-# TODO: Organizar e gerar arquivo em .exe
-
-
-# // Caminho do pytesseract no windowns
 pytesseract.pytesseract.tesseract_cmd = r'C:/Users/elacerda/AppData/Local/Programs/Tesseract-OCR/tesseract.exe'
 
 py.PAUSE = 0.3
@@ -47,18 +33,18 @@ else:
 
 def fechar_smartclient():
     app = "smartclient.exe"
-    for procura in psutil.process_iter(['name']): #* Verifica todos os software em run
-        if procura.info['name'] == app: #* name é um comando interno para o nome do software
-            procura.terminate()  #* Fecha o processo
-            procura.wait()  #* Aguarda o término do processo
+    for procura in psutil.process_iter(['name']): 
+        if procura.info['name'] == app: 
+            procura.terminate() 
+            procura.wait()  
     print("Iniciando processo...") 
 
 
 
 def error():
-     #* Captura uma área da tela 
+
      screenshot = ImageGrab.grab(bbox= (753, 398, 856, 422))
-        #* Usa o pytesseract para fazer OCR
+   
      texto = pytesseract.image_to_string(screenshot).strip()
      
      if texto == "Problema:":
@@ -70,14 +56,14 @@ def error():
 
 def minusculo():  
     
-    if ctypes.windll.user32.GetKeyState(0x14) == 1: #* verifica se a tecla está ativa pelo cytpes, local em hexa e bool para ver se esta ativa
-        keyboard.press_and_release('caps lock') #* press da tecla 
+    if ctypes.windll.user32.GetKeyState(0x14) == 1:
+        keyboard.press_and_release('caps lock') 
 
 
 def usuermax():
-     #* Captura uma área da tela 
+     
      screenshot = ImageGrab.grab(bbox= (761, 447, 853, 469))
-        #* Usa o pytesseract para fazer OCR
+     
      texto = pytesseract.image_to_string(screenshot).strip()
      
      if texto == "Problema":
@@ -272,7 +258,7 @@ def reworking():
                
 
 class Microsigma: 
-    #// construtor
+   
    def __init__(self, acao, pvi, item, prod, servico, cod): 
         self.acao = acao
         self.item = item
@@ -288,7 +274,7 @@ class Microsigma:
           exit()
           
          
-        if self.acao == "cadastro": # chamando cada def com base no filtro
+        if self.acao == "cadastro": 
             self.cadastro()
             self.banco()
             
@@ -308,38 +294,33 @@ class Microsigma:
      time.sleep(5)
      minusculo()
 
-        # Confirmar a aberturas
+      
      py.moveTo(997, 700, duration=0.1)
-     py.PAUSE = 5 # Pausa maior para garantir que o programa tenha tempo para carregar
+     py.PAUSE = 5 
      py.click(x=997, y=700)
      py.click(x=997, y=700)
 
      time.sleep(1)
         
-        # Ir para user
+   
      py.moveTo(815, 473, duration=0.1)
      py.click(x=815, y=473)
      
-   #! Funcionou, só criar a pasta com todos PNG'S e suas variaveis   
-   # TODO a = py.locateOnScreen(r'C:\Programação\Python\Imagens_OCR\login.png') 
-   # TODO  py.moveTo(a)
-        
-        # Digitar usuário
-     py.write('Estagiario', interval=0.1)
+
+     py.write('XXXXXXXX', interval=0.1)
         
      time.sleep(0.5)   
         
-        # Ir para senha
+
      py.moveTo(715, 588, duration=0.1)
      py.click(x=715, y=588)
         
      time.sleep(0.5)
         
-        #? Troca obrigatoria +- 3 meses
-     py.write('Friese@2025', interval=0.1)
+     py.write('XXXXXXXX', interval=0.1)
      py.PAUSE = 0.1
         
-        # Clicar em Entrar após logar
+
      py.moveTo(925, 647, duration=0.1)
      time.sleep(1.5)
      py.click(x=925, y=647)
@@ -347,7 +328,7 @@ class Microsigma:
      time.sleep(2)
      py.PAUSE = 0.1
 
-        # Entrar no broke
+
      py.moveTo(998, 930, duration=0.1)
      time.sleep(1.5)
      py.click(x=998, y=930)
@@ -355,36 +336,36 @@ class Microsigma:
      time.sleep(2)
      py.PAUSE = 0.5
 
-        # Abrir FAVORITOS 
+    
      py.moveTo(49, 502, duration=0.1)
      time.sleep(1.5)
      py.click(x=49, y=502)
         
      time.sleep(3)
         
-        # Abrir ORDENS DE PRODUÇÃO 
+        
      py.moveTo(68, 553, duration=0.1)
      time.sleep(1.5)
      py.click(x=68, y=553)
         
      time.sleep(5)
-     usuermax() #? verificar se é necessário a chamada dupla
+     usuermax() 
      usuermax()
         
-        # Abrir OUTRAS AÇÕES
+       
      py.moveTo(477, 193, duration=0.1)
      time.sleep(3)
      py.click(x=477, y=193)
         
      time.sleep(2)
         
-        # Abrir VENDAS
+      
      py.moveTo(468, 253, duration=0.1)
      time.sleep(2.5)
      py.click(x=468, y=253)
      time.sleep(1)
 
-        # Clicar no root para rolar janela
+      
      py.moveTo(1111, 471, duration=0.1)
      time.sleep(2)
      py.scroll(-900)
@@ -392,18 +373,18 @@ class Microsigma:
         
      time.sleep(1.5)
 
-       # Ir para pedido inicial
+       
      py.moveTo(951, 409, duration=0.1)
      time.sleep(1.5)
      py.click(x=951, y=409)
      time.sleep(3)
 
-     py.write(self.pvi, interval=0.1) # Pedido inicial
+     py.write(self.pvi, interval=0.1) 
        
      time.sleep(2)
      py.PAUSE = 0.1
 
-     py.write(self.pvi, interval=0.1) # Pedido final
+     py.write(self.pvi, interval=0.1) 
      time.sleep(1.5) 
      py.PAUSE = 0.1
 
@@ -420,20 +401,20 @@ class Microsigma:
         time.sleep(5)
         
            
-          #* Captura dos códigos do produto 
+        
         produtos = ImageGrab.grab(bbox=(209,200, 440, 954))
        
         time.sleep(2) 
                  
-          #* Converte o texto em uma escala diferente de cores (cinza)
+        
         produtos = produtos.convert('L')
    
         time.sleep(2) 
         
-          #* OCR de cada produto completo 
+          
         codigo = pytesseract.image_to_string(produtos)
         
-          # Converte em lista 
+        
         lista_informacoes = codigo.split()
          
          
@@ -441,7 +422,6 @@ class Microsigma:
 
           
         servico = [] 
-        uni = []
         
         
         print(servico)
@@ -467,7 +447,7 @@ class Microsigma:
         print(f"{self.item}")
         print(type(self.item))
    
-         #! Dor de cabeça desgraçada né  
+    
         time.sleep(0.5)
   
         
@@ -476,9 +456,9 @@ class Microsigma:
         print(f"Código CR {lista_informacoes[int(self.item)]} na posição {self.item}")
         
         self.cod = lista_informacoes[int(self.item)]
-        print(f"{self.cod}") #! FUNCIONOU FINALMENTE
+        print(f"{self.cod}")
         
-        # Fechar ORDENS DE PRODUÇAO
+        
         time.sleep(1.5)
 
         py.moveTo(1900, 152, duration=0.1)
@@ -486,14 +466,14 @@ class Microsigma:
         py.click(x=1900, y=152)
         
         
-        # Fechar ORDENS DE PRODUÇAO
+  
         time.sleep(1.5)
 
         py.moveTo(1900, 152, duration=0.1)
         time.sleep(1.5)                               
         py.click(x=1900, y=152)
         
-        # Entrar em PROCESSOS PRODUTIVOS
+     
         time.sleep(1)
 
         py.moveTo(85, 581, duration=0.1)
@@ -501,7 +481,7 @@ class Microsigma:
         py.click(x=85, y=581)
         
         
-        # Incluir
+    
         time.sleep(7)
 
         py.moveTo(47, 191, duration=0.1)
@@ -743,13 +723,13 @@ class Microsigma:
        
     try:  
        
-     conexao = sqlite3.connect("MicroSigma.db")  #* Cria a conexao no db MicroSigma
-     cursor = conexao.cursor() #* Cria um cursor para comandar dados
-   
+     conexao = sqlite3.connect("MicroSigma.db") 
+     cursor = conexao.cursor() 
+     
     except sqlite3.error as e:
        print(e)
        
-    #* Criar a tabela MicroSigma e seus atributos
+   
     
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS MicroSigma (
@@ -783,50 +763,48 @@ class Microsigma:
    
     print("Processo finalizado e cadastrado no banco de dados")
 
-#! Framework atualizado para .place() por ser mais preciso
 
 
 def front_end():
-    # Função para permitir somente números
+ 
     def validar_numeros(char):  
         return char.isdigit()
     
-    # Função para atualizar a data e hora
+   
     def atualizar():
         data_atual = dt.datetime.now().strftime("%d-%m || %H:%M:%S")
-        label_data.config(text=f"{data_atual}")  # Atualiza o texto do rótulo
-        root.after(1000, atualizar)             # Chama esta função novamente após 1 segundo
+        label_data.config(text=f"{data_atual}")  
+        root.after(1000, atualizar)             
 
-    #* Criando a janela principal
+
     root = tk.Tk()
     root.title("Automação MicroSigma")
     root.config(bg="gray17")
     
-    #* Inserindo o tema no root
+    
     style =ThemedStyle(root) 
     style.set_theme('equilux') 
     
-    #* Informações da tela
+    
     screen_largura = root.winfo_screenwidth()
     screen_altura = root.winfo_screenheight()
     largura_janela = 500
     altura_janela = 550
  
-    # Centraliza a janela
+
     x = (screen_largura // 2) - (largura_janela // 2)
     y = (screen_altura // 2) - (altura_janela // 2)   
     root.geometry(f"{largura_janela}x{altura_janela}+{x}+{y}")
 
-    #* Criando a praga do botão
+   
     botao_cadastro = tk.Button(root, text="Cadastro", font="bold", bg="gray17", fg="white",  command=lambda: [Microsigma("cadastro", entrada.get(), item.get(), prod.get(), serv.get(), None)])
     botao_consulta = tk.Button(root, text="Consulta", font="bold", bg="gray17", fg="white", command=lambda: [Microsigma("consulta", entrada.get(), item.get(), prod.get(), serv.get(), None )])
-    #* o botão está configurado para aparecer na janela principal "root", com o nome de text=""s
-    #* sua ação é dada pelo command=lambda, que chama a classe e envia uma string e o valor inserido de pv q tbm é uma string
+    
 
-    # Registra a validação de números
+   
     verif = (root.register(validar_numeros), '%S')
 
-    # Rótulo e entrada de texto
+  
     label = tk.Label(root, text="Insira o PV e item:", fg="white",bg="gray17", font="bold")
     label.place(x=50, y=50)
     
@@ -869,14 +847,14 @@ def front_end():
     label_imagem = tk.Label(root, image=imagem_tk, bg="gray17")
     label_imagem.place(y= 350,anchor="nw")
 
-    # Label da data
-    label_data = tk.Label(root, text="", font=("Times", 14,), bg="gray17", fg="white")
-    label_data.place(relx=1.0, rely=1.0, anchor="se")  # Canto inferior direito
 
-    # Atualização da data
+    label_data = tk.Label(root, text="", font=("Times", 14,), bg="gray17", fg="white")
+    label_data.place(relx=1.0, rely=1.0, anchor="se")  
+
+   
     atualizar()
 
-    # Inicia o loop principal da interface
+   
     root.mainloop()
 
 front_end()
