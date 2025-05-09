@@ -8,8 +8,11 @@
 
 # Dashboard with Streamlit
 
+
 ![Streamlit](Apw.png)
 
+
 ![Graphics](Graph.png)
+
 
 ![df](DataFrame.png)
